@@ -1,0 +1,8 @@
+version: '1'
+services:
+  redis:
+    image: artefactual/gearmand
+  web:
+    build: ../
+    volumes:
+      - ../src:/opt/src
