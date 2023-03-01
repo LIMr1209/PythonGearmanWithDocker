@@ -1,8 +1,8 @@
 from gearman import GearmanWorker
 from gearman import DataEncoder
 
-gm_worker = GearmanWorker(['gearmand:4730'])
-# gm_worker = GearmanWorker(['127.0.0.1:4730'])
+# gm_worker = GearmanWorker(['gearmand:4730'])
+gm_worker = GearmanWorker(['127.0.0.1:4730'])
 
 
 def task_listener_reverse(gearman_worker, gearman_job):

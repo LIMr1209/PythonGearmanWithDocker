@@ -101,6 +101,7 @@ class GearmanAdminClientCommandHandler(GearmanCommandHandler):
             raise ValueError('Could not handle command: %r - %r' % (cmd_type, raw_text))
 
         # This must match the parameter names as defined in the command handler
+        raw_text = raw_text.decode("utf-8").strip()
         completed_work = cmd_callback(raw_text)
         return completed_work
 

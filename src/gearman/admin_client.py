@@ -118,6 +118,8 @@ class GearmanAdminClient(GearmanConnectionManager):
         if cmd_type != expected_type:
             raise InvalidAdminClientState('Received an unexpected response... got command %r, expecting command %r' % (cmd_type, expected_type))
 
+        if type(cmd_resp) == bytes:
+            return cmd_resp.decode("utf-8")
         return cmd_resp
 
     def get_pid(self):
