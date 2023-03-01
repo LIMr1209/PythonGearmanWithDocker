@@ -12,8 +12,8 @@ def check_request_status(job_request):
         print("Job %s connection failed!" % job_request.unique)
 
 
-# client = GearmanClient(['gearmand:4730'])
-client = GearmanClient(['127.0.0.1:4730'])
+client = GearmanClient(['gearmand:4730'])
+# client = GearmanClient(['127.0.0.1:4730'])
 completed_job_request = client.submit_job("reverse", "Hello World!")
 check_request_status(completed_job_request)
 

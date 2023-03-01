@@ -1,8 +1,9 @@
+name: "PythonGearmanWithDocker"
 version: '1'
 services:
   gearmand:
     image: artefactual/gearmand
-  web:
+  python:
     build: ../
     volumes:
       - ../src:/opt/src

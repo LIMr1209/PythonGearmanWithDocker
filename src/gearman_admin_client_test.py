@@ -1,7 +1,7 @@
 from gearman.admin_client import GearmanAdminClient
 
-# admin_client = GearmanAdminClient(['gearmand:4730'])
-admin_client = GearmanAdminClient(['127.0.0.1:4730'])
+admin_client = GearmanAdminClient(['gearmand:4730'])
+# admin_client = GearmanAdminClient(['127.0.0.1:4730'])
 
 admin_client.send_maxqueue("reverse", 100)  # 发送更改给定任务的最大队列大小的请求
 

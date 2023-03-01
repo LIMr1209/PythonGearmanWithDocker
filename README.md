@@ -8,7 +8,8 @@
   ```
   cd src
   docker-compose up
-  ``` 
+  docker-compose up -d  // 后台运行
+  ```
 
 ### gearman 测试
 -  进入Python docker 环境: 
