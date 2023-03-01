@@ -8,7 +8,7 @@ gm_worker = GearmanWorker(['127.0.0.1:4730'])
 def task_listener_reverse(gearman_worker, gearman_job):
     # gearman_job 参数
     print('Reversing string: ' + gearman_job.data.decode("utf-8"))
-    return gearman_job.data.decode[::-1]
+    return gearman_job.data.decode("utf-8")[::-1]
 
 
 # gm_worker.set_client_id is optional
