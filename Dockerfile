@@ -5,4 +5,4 @@ WORKDIR /opt/src
 
 RUN pip install -r requirements.txt
 CMD ["python", "gearman_worker_test.py"]
-CMD ["python", "gearman_client_test.py"]
+#CMD ["python", "gearman_client_test.py"]
