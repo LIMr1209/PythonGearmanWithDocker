@@ -36,6 +36,7 @@ def task_listener_reverse_inflight(gearman_worker, gearman_job):
         print(total_chars)
         gearman_worker.send_job_data(gearman_job, str(character))  # 更新作业数据
         gearman_worker.send_job_status(gearman_job, idx + 1, total_chars)  # 更新作业状态
+        gearman_worker.send_job_warning(gearman_job, str(idx+1))  # 更新作业状态
 
     return None
 
