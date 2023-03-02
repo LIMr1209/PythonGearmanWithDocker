@@ -1,6 +1,10 @@
 from gearman import JOB_UNKNOWN
 from gearman.client import GearmanClient
-from gearman import DataEncoder
+from util import JSONDataEncoder
+
+
+class JsonClient(GearmanClient):
+    data_encoder = JSONDataEncoder
 
 
 def check_request_status(job_request):
@@ -13,31 +17,15 @@ def check_request_status(job_request):
 
 
 # client = GearmanClient(['gearmand:4730'])
-client = GearmanClient(['127.0.0.1:4730'])
-completed_job_request = client.submit_job("reverse", "Hello World!")
-check_request_status(completed_job_request)
+client = JsonClient(['127.0.0.1:4730'])
+reverse_request = client.submit_job("reverse", "Hello World!")
+check_request_status(reverse_request)
+json_request = client.submit_job("json", {'hello': 'there'})
+check_request_status(json_request)
+
+# background=True 后台运行
+inflight_request = client.submit_job("reverse_inflight", "Hello World!")
+# 测试启动两个worker 处理该请求的 worker 挂掉 会切换到另一个worker 重新执行
 
 # GearmanClient.get_job_status # 获取单个请求的作业状态
 # GearmanClient.get_job_statuses # 获取多个请求的作业状态
-
-
-import pickle
-
-
-class PickleDataEncoder(DataEncoder):
-    @classmethod
-    def encode(cls, encodable_object):
-        return pickle.dumps(encodable_object)
-
-    @classmethod
-    def decode(cls, decodable_string):
-        return pickle.loads(decodable_string)
-
-
-class PickleExampleClient(GearmanClient):
-    data_encoder = PickleDataEncoder
-
-# my_python_object = {'hello': 'there'}
-#
-# gm_client = PickleExampleClient(['localhost:4730'])
-# gm_client.submit_job("task_name", my_python_object)

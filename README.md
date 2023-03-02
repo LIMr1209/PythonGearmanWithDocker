@@ -2,6 +2,7 @@
 
 ### 环境要求
 - Docker
+- Docker-Compose
 
 ### 启动
 - Docker 启动 gearmand 服务 以及 Python gearman worker: 
