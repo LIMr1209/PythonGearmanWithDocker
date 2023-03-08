@@ -13,7 +13,7 @@ admin_client = GearmanAdminClient(['127.0.0.1:4730'])
 # ({'file_descriptor': '36', 'ip': '172.17.0.1', 'client_id': 'python-worker', 'tasks': ('reverse',)},)
 
 
-print(admin_client.get_jobs())
+# print(admin_client.get_jobs())
 
 # print(admin_client.get_status())
 # ({'task': 'reverse', 'queued': 0, 'running': 0, 'workers': 1},)
