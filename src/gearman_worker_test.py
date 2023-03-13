@@ -5,6 +5,10 @@ from util import JSONDataEncoder
 import sys
 
 
+# worker 任务 处理过程中 发生异常  如果作业处于后台，则从队列中删除该作业
+# 需要自己实现 异常捕获 重试操作 最大重试次数
+# 超时 设置
+
 class JsonWorker(GearmanWorker):
     data_encoder = JSONDataEncoder
 
@@ -20,6 +24,7 @@ def task_listener_json(gearman_worker, gearman_job):
     # return gearman_job.data.decode("utf-8")[::-1]
     print(datetime.datetime.now())
     print('Reversing object: ', gearman_job.data)
+    # int("aa")
     time.sleep(3)
     return {"李振斌": gearman_job.data}
 
@@ -27,7 +32,6 @@ def task_listener_json(gearman_worker, gearman_job):
 def task_listener_reverse_inflight(gearman_worker, gearman_job):
     reversed_data = reversed(gearman_job.data)
     total_chars = len(gearman_job.data)
-
     for idx, character in enumerate(reversed_data):
         time.sleep(1)
         print(total_chars)
@@ -46,7 +50,6 @@ worker.register_task('json', task_listener_json)
 
 # Enter our work loop and call gm_worker.after_poll() after each time we timeout/see socket activity
 worker.work()  # 无限循环，完成来自所有连接的任务。
-
 
 # worker.register_task('reverse_inflight', task_listener_reverse_inflight)
 # GearmanWorker.unregister_task("reverse")  # 向 worker 注销函数
