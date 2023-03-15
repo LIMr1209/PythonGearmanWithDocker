@@ -1,5 +1,3 @@
-import time
-
 from gearman import JOB_UNKNOWN
 from gearman.client import GearmanClient
 from util import JSONDataEncoder
@@ -23,7 +21,7 @@ def check_request_status(job_request):
 
 
 # client = GearmanClient(['gearmand:4730'])
-client = JsonClient(['127.0.0.1:4730'])
+client = JsonClient(['127.0.0.1:4730', '10.25.10.120:4730']) # 错误ip 会尝试连接 然后 导致任务延时
 
 # 单任务
 # request = client.submit_job("json", "Hello World!", background=True)  # 异步 不会返回结果 存储结果 需要 worker 存到某一个介质中 （数据库，文件中）
@@ -43,7 +41,7 @@ client = JsonClient(['127.0.0.1:4730'])
 # print(request.result)
 
 
-# request = client.submit_job("json", "Hello World!", background=True)
+# request = client.submit_job("json", "Hello World!", background=True) # 异步 不返回结果
 # print(request.result)
 
 # 多任务
@@ -53,11 +51,11 @@ new_jobs = [
 ]
 
 completed_requests = client.submit_multiple_jobs(new_jobs, background=True)  # 异步 不会返回结果
-for current_request in completed_requests:
-    check_request_status(current_request)
+# for current_request in completed_requests:
+#     check_request_status(current_request)
 
 # 默认 max_retries 为 0 只能发送一次当前请求
-# completed_requests = client.submit_multiple_jobs(new_jobs, background=False, max_retries=3) # 同步 等待返回结果
+# completed_requests = client.submit_multiple_jobs(new_jobs, background=False) # 同步 等待返回结果
 # for current_request in completed_requests:
 #     check_request_status(current_request)
 #
